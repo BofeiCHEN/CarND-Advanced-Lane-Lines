@@ -74,7 +74,7 @@ def find_lane_pixels(binary_warped):
         if len(good_right_inds) > minpix:        
             rightx_current = np.int(np.mean(nonzerox[good_right_inds]))
 
-    # Concatenate the arrays of indices (previously was a list of lists of pixels)
+    # Concatenate the arrays of indices
     try:
         left_lane_inds = np.concatenate(left_lane_inds)
         right_lane_inds = np.concatenate(right_lane_inds)
