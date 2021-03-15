@@ -144,3 +144,12 @@ By go through all the undistortion image, all visual display image are generated
 
 ## Videos
 
+According the function implemented previously, the function *process_img()* is created to deal with each frame of video. The image is undistorted first (Line 7), the the funciton *visual_lane()* deal with it to generate one image including lane area, curvature and vehicle position information.
+
+With this function, the three videos are processed and saved in the folder *test_videos_output*.
+
+## Discussion 
+
+1. Some of function should be re-organized, such as the two section warp back lane boundaries and visual display, some of code has repeated. In the visual display part, the processing of binary image is involved in two different step. Which means if I want to adapt the thresholded parameters, I need change them in two place at the same time.
+
+1. For the challange and hard challange video, I cannot find the lane successfully. Some parameters could be adjusted, eg. thresholded for binary image, area for get histogram.
