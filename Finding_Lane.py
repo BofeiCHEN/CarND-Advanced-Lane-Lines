@@ -24,7 +24,7 @@ def find_lane_pixels(binary_warped):
     # Set the width of the windows +/- margin
     margin = 50
     # Set minimum number of pixels found to recenter window
-    minpix = 100
+    minpix = 70
 
     # Set height of windows - based on nwindows above and image shape
     window_height = np.int(binary_warped.shape[0]//nwindows)

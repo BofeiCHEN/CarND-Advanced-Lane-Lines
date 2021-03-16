@@ -145,7 +145,13 @@ By go through all the undistortion image, all visual display image are generated
 
 ## Videos
 
-According the function implemented previously, the function *process_img()* is created to deal with each frame of video. The image is undistorted first (Line 7), the the funciton *visual_lane()* deal with it to generate one image including lane area, curvature and vehicle position information.
+According the function implemented previously, the function *process_img()* is created to deal with each frame of video:
+
+1. The image is undistorted (Line 12) and birds-eye image is generated (Line 13), after some global variables are defined (Line 7 - Line 10).
+1. Then, the re-warped lane (*warped_lane*) is computed by function *warp_lane()* (Line 16) which also return one value indicate if the lane is found successfully. If the lane is found, the *warped_lane* is saved to *previous_warped_lane*; if the lane isn't found, the *previous_warped_lane* will be used.
+1. The next step is to calculate the curvature value and vehicle position (Line 25 and Line 26). This information is also checked like *warped_lane*, if failed to calculate, the previous one will be used (Line 29 - Line 36).
+1. The last step is to write the curvature and position information to the image (Line 38) and return.
+
 
 With this function, the three videos are processed and saved in the folder *test_videos_output*.
 

@@ -39,7 +39,7 @@ def measure_curvature_real(binary_warped_img, ym_per_pix, xm_per_pix):
     line_dis = abs(x_right_cr - x_left_cr)
     lane_weight = 3.7
     if(abs(line_dis - lane_weight) > 0.3):
-        #sucess = False
+        sucess = False
         veh_position = "error"
 
     # Curvature
@@ -58,7 +58,7 @@ def measure_curvature_real(binary_warped_img, ym_per_pix, xm_per_pix):
         left_curverad = "straight"
         right_curverad = "straight"
     elif(2*abs((left_curverad - right_curverad)/(left_curverad + right_curverad)) > 0.2):
-        #sucess = False
+        sucess = False
         left_curverad = "error"
         right_curverad = "error"
     
