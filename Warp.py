@@ -15,13 +15,15 @@ def warp_lane(img, matrix):
     # get left_fitx, right_fitx, ploty
     binary_birds_eye = threshold_binary(img, sobelx_thresh=(70, 170), channel_thresh=(170, 255))
     
-    left_fitx, right_fitx, ploty, out_img = fit_polynomial(binary_birds_eye)
-    pts_left = np.array([np.transpose(np.vstack([left_fitx, ploty]))])
-    pts_right = np.array([np.flipud(np.transpose(np.vstack([right_fitx, ploty])))])
-    pts = np.hstack((pts_left, pts_right))
+    left_fitx, right_fitx, ploty, out_img, success = fit_polynomial(binary_birds_eye)
+    
+    if success:
+        pts_left = np.array([np.transpose(np.vstack([left_fitx, ploty]))])
+        pts_right = np.array([np.flipud(np.transpose(np.vstack([right_fitx, ploty])))])
+        pts = np.hstack((pts_left, pts_right))
 
-    # Draw the lane onto the warped blank image
-    cv2.fillPoly(img, np.int_([pts]), (0,255, 0))
+        # Draw the lane onto the warped blank image
+        cv2.fillPoly(img, np.int_([pts]), (0,255, 0))
 
     # Warp the lane back to original image space using inverse perspective matrix (Minv)
     return cv2.warpPerspective(img, matrix, (binary_birds_eye.shape[1], binary_birds_eye.shape[0])) 

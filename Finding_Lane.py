@@ -13,6 +13,11 @@ def find_lane_pixels(binary_warped):
     leftx_base = np.argmax(histogram[:midpoint])
     rightx_base = np.argmax(histogram[midpoint:]) + midpoint
 
+    xm_par_pix= 3.7/300
+    line_dis = (rightx_base - leftx_base)*xm_par_pix
+    success = True
+    if(abs(line_dis - 3.7) > 0.3):
+        success = False
     # HYPERPARAMETERS
     # Choose the number of sliding windows
     nwindows = 9
@@ -89,13 +94,13 @@ def find_lane_pixels(binary_warped):
     rightx = nonzerox[right_lane_inds]
     righty = nonzeroy[right_lane_inds]
 
-    return leftx, lefty, rightx, righty, out_img
+    return leftx, lefty, rightx, righty, out_img, success
 
 
 def fit_polynomial(binary_warped):
    
     # Find our lane pixels 
-    leftx, lefty, rightx, righty, out_img = find_lane_pixels(binary_warped)
+    leftx, lefty, rightx, righty, out_img, success = find_lane_pixels(binary_warped)
 
     # Fit a second order polynomial
     left_fit = np.polyfit(lefty, leftx, 2)
@@ -126,9 +131,9 @@ def fit_polynomial(binary_warped):
     #curve = np.column_stack((x_values.astype(np.int32), y_values.astype(np.int32)))
     #cv2.polylines(image, [curve], False, (0,255,255))
 
-    # APlot two curves
+    # Plot two curves
     curve1 = np.column_stack((left_fitx.astype(np.int32), ploty.astype(np.int32)))
     curve2 = np.column_stack((right_fitx.astype(np.int32), ploty.astype(np.int32)))
     cv2.polylines(out_img, [curve1, curve2], False, (0,255,255), 2)
 
-    return left_fitx, right_fitx, ploty, out_img
+    return left_fitx, right_fitx, ploty, out_img, success
