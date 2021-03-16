@@ -72,15 +72,16 @@ Two funciton are created to find the lane boundary in the file *Finding_Lane.py*
 - **find_lane_pixels():** which return left and right lane line pixel positions. 
     1. One histogram of the bottom half of the image is generated as the first step by the function *np.sum()* in Line 7. 
     1. Then, two peak of the left and right halves of the histogram are found, which will be starting points for left and right lane lines corresponding as shown from Line 12 to Line 14 in code. 
-    1. In order to search the lane line points using sliding windows method, some parameters are set, including the number of sliding windows, margin for the width of windows, the minimum pixels for recenter window and the height for each window which is gotten from image size and window number, Line 18 - Line 36. 
-    1. One for-loop steps through all windows one by one to find the lane line pixels. Boundaries of two rectangles are calculated firstly, Line 41 - Line 47. Which are also drew to the image (Line 50 - Line 53). Then, nonzero pixels are identified and saved, Line 56 - Line 69. If there are more found pixels then the minimum pixels set in last step, the window center will be re-calculated (Line 72 - Line 75).
-    1. Subsequently, arrays of indices of two lane line piexls are concatenated. And pixels positions are extracted for returning (Line 77 - Line 92).
+    1. According the real lane width: 3.7 meters, the result of left and right base are checked (Line 16 - Line 20).
+    1. In order to search the lane line points using sliding windows method, some parameters are set, including the number of sliding windows, margin for the width of windows, the minimum pixels for recenter window and the height for each window which is gotten from image size and window number, Line 23 - Line 30. 
+    1. One for-loop steps through all windows one by one to find the lane line pixels. Boundaries of two rectangles are calculated firstly, Line 46 - Line 52. Which are also drew to the image (Line 55 - Line 58). Then, nonzero pixels are identified and saved, Line 56 - Line 69. If there are more found pixels then the minimum pixels set in last step, the window center will be re-calculated (Line 77 - Line 80).
+    1. Subsequently, arrays of indices of two lane line piexls are concatenated. And pixels positions are extracted for returning (Line 82 - Line 97).
 
 - **fit_polynomial():** which return the x and y values for plotting lane lines, one image where lanes lines and sliding window are indicated. 
-    1. Lane pixels are computed first by the function *find_lane_pixels()* (Line 98).
-    1. Then, one second order polynomial for each lane line is caluclated (Line 101 and Line 102).
-    1. According the second order polynomial, x and y values for plotting are calculated (Line 105 - Line 114), and different colors are set to lane line pixels (Line 118 and Line 119).
-    1. The last step is to draw two lane line to image (Line 130 - Line 132).
+    1. Lane pixels are computed first by the function *find_lane_pixels()* (Line 103).
+    1. Then, one second order polynomial for each lane line is caluclated (Line 106 and Line 107).
+    1. According the second order polynomial, x and y values for plotting are calculated (Line 110 - Line 119), and different colors are set to lane line pixels (Line 123 and Line 124).
+    1. The last step is to draw two lane line to image (Line 135 - Line 137).
 
 After we converte one birds-eye image to binary, we can use the two function: *find_lane_pixels()* and *fit_polynomial()* to find the lane line and indicating in the output image. For one birds-eye image as following:
 ![Birds-eye view image](output_images/birds_eye/birds_eye_straight_lines1.jpg "Birds-eye view image")
